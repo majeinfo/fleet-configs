@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: sysctl-config
+  namespace: kube-system
+spec:
+  selector:
+    matchLabels:
+      app: sysctl-config
+  template:
+    metadata:
+      labels:
+        app: sysctl-config
+    spec:
+      hostPID: true
+      containers:
+      - name: sysctl
+        image: busybox
+        securityContext:
+          privileged: true
+        command:
+          - sh
+          - -c
+          - |
+            sysctl -w net.core.somaxconn=65535
+            sleep 3600
