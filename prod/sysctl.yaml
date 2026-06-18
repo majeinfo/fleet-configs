@@ -12,6 +12,7 @@ spec:
       labels:
         app: sysctl-config
     spec:
+      # sans tolerations, Pods uniquement sur workers
       hostPID: true
       containers:
       - name: sysctl
