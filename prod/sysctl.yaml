@@ -14,14 +14,15 @@ spec:
     spec:
       # sans tolerations, Pods uniquement sur workers
       hostPID: true
+      securityContext:
+        sysctls:
+          - name: net.core.somaxconn
+            value: "65535"
       containers:
       - name: sysctl
         image: busybox
         securityContext:
           privileged: true
-          sysctls:
-            - name: net.core.somaxconn
-              value: "65535"
         command:
           - sh
           - -c
